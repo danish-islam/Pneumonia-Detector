@@ -1,0 +1,84 @@
+<!doctype html>
+
+<head>
+	<title>Python Flask File Upload Example</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<style>
+		div {margin:0;}
+		
+		.navbar {
+		  overflow: hidden;
+		  background-color: #333;
+		  position: fixed;
+		  top: 0;
+		  width: 100%;
+		}
+		
+		.navbar a {
+		  float: left;
+		  display: block;
+		  color: #f2f2f2;
+		  text-align: center;
+		  padding: 14px 16px;
+		  text-decoration: none;
+		  font-size: 17px;
+		}
+		
+		.navbar a:hover {
+		  background: #ddd;
+		  color: black;
+		}
+		
+		.main {
+		  padding: 16px;
+		  margin-top: 30px;
+		  height: 1500px; /* Used in this example to enable scrolling */
+		}
+	</style>
+
+</head>
+
+
+<div class="navbar">
+	<a style="font-size: 19px; font-weight: bold">X-Ray Pneumonia Detector</a>
+	<a href="/" class="active">Home</a>
+	<a href="/about">About</a>
+</div>
+
+<body style="font-family:arial">
+    <h2> Here is my description </h2>
+	<div>
+		<h2> X-Rays and Pneumonia </h2>  
+		<p>
+			Pneumonia is an infection caused by bacteria, viruses or fungi which results in air sacs within the lungs called alveoli filled with fluid. This results in symptoms such as coughing, chest pain, etc. One of the diagnostic tests that physicians use for pneumonia is a chest x-ray. [1] A radiologist looks for white spots (known as infiltrates) in the x-ray image of the lungs which indicates an infection. [2]  There are other diagnostic methods for pneumonia, however we can create a Convolutional Neural Network (CNN) model that is trained to identify pneumonia in x-ray images as another tool to aid physicians in their diagnosis. 
+		</p>
+		<img src="https://www.news-medical.net/image.axd?picture=2020%2F12%2FCapture27.jpg", height="500">
+	</div>
+	<div>
+		<h2> Creating the Model </h2>  
+		<p>
+			The CNN model will be trained on a dataset of chest x-ray images from the Guangzhou Women and Children’s Medical Center in Guangzhou, China [3]. There are 5216 images in the training data and 624 images in the test data. There was an imbalance in the training data with 3875 pneumonia images and 1341 normal images, so data augmentation was applied with the ImageDataGenerator function in the tensorflow and keras library to account for this.
+		</p>
+		<img src="https://lh3.googleusercontent.com/W5gydLTJEsFkUW1tsV3pGirQcbx8ZZ7hUyHz-DvuhyZ2sdbjsr8-tuAc7WdRN1t8Z2UWAEZ0R5PQBkhXR6UmqN9UXdUWmtNcGoZLFY2Adq2D_jf5_LOm0-3z1etCcdvHIAwp07Yn8YqZzMepm0gZhLlXZyzVA1aKveJj0zLym5auAYKdCyqOuP6EbR8Ef6lwFuxy_AYk_FWFiiPFkjdUtkZGzMHGKXuru1Peb4lIt2BcW1TSTcPA_ftEIcx6Ac5BTPCzIydwukr0tCWrea6vxtCqByn3Yd0cH7XeaX9EjKFsg9mIIpMTW3NBYE8QPGy_dSz1Wj9FrAiDdsIvcEwNB85otHa4v8lljQBmRYae0-EUBNsBspVUEsgGJGAR3pQC96qM8VlIqSqMl4owm9l9g6wAtKT-iaq7P8upc4SrAHaSfCWC3rklZTZva9yLRE3pydHLckbVuhq1OOVqox4J5J4sdl5R_8iwanChJ66SbBzooTQu_FJvx8X9kX3397dtPB9FxzMm_lGREVMCv1tgQdrjch1BO0ylNEQ4RzRi8wnV-bWsQyCj63aoBJgn-Q1O-SIu2aoLcSOzVs1Uw8Vkuzqh2nD7rBbGtc88hpPkGKZcXNNpQakfczAORgZvJZqm_Gs7LEjQ8nICqahWbW8R9COrEpofh5YT0q1CuyzLyxG4UML_XRj-dBTE6BCFWfd8dxedDb-QGFPs7tWKLQxVszDgu3J1r1Aup7kg7kwZ6NZLdgnyWRjn2FdF870=w810-h659-no?authuser=0" height="500">
+		<p>
+			A number of neural network combinations were trained and the most effective model ended up being five Conv2D layers, each of which was followed by BatchNormalization and MaxPool2D to minimize the parameters. Dropout layers were also added within the network to reduce overfitting on the training data. 
+		</p>
+	</div>
+	<div>
+		<h2> Model Results </h2> 
+		<p>
+			After training the model, it’s accuracy was measured to be 92% on the test data. The confusion matrix looked like this: 
+
+		</p>
+		<img src="https://lh3.googleusercontent.com/-7jTeU2ZuGyKkNL9lCSwH2DP7hCCKuYpJvPwBH8Tztps5vxt4bpi1P17Z7HXBPZF2qM23uhl7z6bDWcU81sxoABQjmgF1kZCXYcs_kubU8qDuyEVC55Zq5fcto0XhTpbjE28jmZq6VohVjsn1iAsna6u-KpZlI9ji7Rysva8cKcxMkXK9Uj9ZiXpJW_fFNwGHb55e4zy0NZR88n_LmD8Ykc1fSUYo4CSttHodUikUIMiE18zaBeCD59ZtRkTMwW8RHkxhmYBCCd7Q3v4RDGvEqi3HSByASSEp7Fyzjh5CbWsskNU3-h0cRMeiLrdtIzOtsmpBjs6sWHvUi7EpWgjIa7SXIBtXJNiyWDvVZF64zxUvDxtvl5lmXDg0ljOw7upnyyI_DcUcI5d80qGQJz2zPLLB9Nfdi1OjuJ01tYa661qe8fsIEx_yfVPJJW_EEXopOh4kRdWBCUcK1ioYtPvJTVzfHGUodbmf0Qy2IP10-0v1t4MnwyVqSqTIujeWunR1LDtloacH-6NpF-pUsbIj879VG9eEPZc0seckgvHLvDX9Oque5Ld1oUAsB7ByK8JKPtl1IfD-45Jr2iAXqMMbwUs-147aoS31q1uRYu7W0B4AkJuwDA8tgAVh4kndNVuI2s-6aEfVX4xyz10jz_yxoGqBWOfN-gr-tQlgTsJgYicJv_3aJdC9iqicbHcTbt_O4BWzlghdUxtCNTFjxQm7Ci9EKrnpLPO-QrVF92f0PoK-77jF0cpek3nv3Y=w1741-h1140-no?authuser=0" height="500">
+		<!-- <p>The next steps are... </p> -->
+	</div>
+	<div>
+		<h2> Bibliography </h2>  
+		<p>[1] https://www.nhlbi.nih.gov/health/pneumonia#:~:text=To%20diagnose%20pneumonia%2C%20your%20healthcare,%2C%20viral%2C%20or%20fungal%20medicines.</p>
+		<p>[2] https://www.radiologyinfo.org/en/info/pneumonia#:~:text=Chest%20x%2Dray%3A%20An%20x,infiltrates)%20that%20identify%20an%20infection.</p>
+		<p>[3] https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia</p>
+	</div>
+    
+</body>

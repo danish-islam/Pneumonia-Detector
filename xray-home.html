@@ -1,0 +1,90 @@
+<!doctype html>
+
+<head>
+	<title>Python Flask File Upload Example</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<style>
+		div {margin:0;}
+		
+		.navbar {
+		  overflow: hidden;
+		  background-color: #333;
+		  position: fixed;
+		  top: 0;
+		  width: 100%;
+		}
+		
+		.navbar a {
+		  float: left;
+		  display: block;
+		  color: #f2f2f2;
+		  text-align: center;
+		  padding: 14px 16px;
+		  text-decoration: none;
+		  font-size: 17px;
+		}
+		
+		.navbar a:hover {
+		  background: #ddd;
+		  color: black;
+		}
+		
+		.main {
+		  padding: 16px;
+		  margin-top: 30px;
+		  height: 1500px; /* Used in this example to enable scrolling */
+		}
+	</style>
+
+</head>
+
+
+<div class="navbar">
+	<a style="font-size: 19px; font-weight: bold">X-Ray Pneumonia Detector</a>
+	<a href="/" class="active">Home</a>
+	<a href="/about">About</a>
+</div>
+
+<div>
+	<h2 style="font-family:arial">Upload an X-Ray Image, accepted formats: .png, .jpg, .jpeg</h2>
+	<h2 style="font-family:arial">Upload an X-Ray Image, accepted formats: .png, .jpg, .jpeg</h2>
+	<p style="font-family:arial">
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+			{{ message }}
+			{% endfor %} 
+		{% endif %}
+		{% endwith %}
+	</p>
+
+	{% if filename %}
+		<div style="font-family:arial">
+			<img src="{{ url_for('display_image', filename=filename) }}" height="400">
+			<h3>The model predicts: {{result}}</h3>
+		</div>
+	{% endif %}
+</div>
+
+<div style="font-family:arial">
+	<form method="post" action="/" enctype="multipart/form-data">
+		<dl>
+			<p>
+				<br>
+				<input type="file" name="file" autocomplete="off" required>
+				<input type="submit" value="Submit">
+			</p>
+		</dl>
+	</form>
+	<br>
+</div>
+
+<div style="font-family:arial">
+
+	<p> Try uploading some images from the dataset this model was trained on: 
+		<a href="https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia"> dataset </a>
+	</p>
+
+	<h4>NOTE: The model was trained with 92% accuracy on the training data. The next iteration of the model will seek to improve this accuracy.</h4>
+</div>
