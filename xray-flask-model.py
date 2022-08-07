@@ -24,7 +24,8 @@ app.config['MAX_CONTENT_LENGTH'] = 16*1024*1024
 
 image_size=180
 from skimage import color
-def resize_image(image_path):
+def resize_image(image_file):
+    image_path = UPLOAD_FOLDER + image_file # Works for heroku
     image = imread(image_path)
     image_shape = image.shape
     if (len(image.shape)==3):
